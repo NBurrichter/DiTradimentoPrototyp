@@ -1,0 +1,197 @@
+fileFormatVersion: 2
+guid: f9fb02f91ad0cb440b52bf375011968c
+timeCreated: 1476534538
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Head
+    100002: Helmet
+    100004: IKLeftArm
+    100006: IKLeftFoot
+    100008: IKRightArm
+    100010: IKRightFoot
+    100012: IKs
+    100014: JointHead
+    100016: JointLeftElbow
+    100018: JointLeftFoot
+    100020: JointLeftHand
+    100022: JointLeftKnee
+    100024: JointLeftLeg
+    100026: JointLeftShoulder
+    100028: JointLeftToe
+    100030: JointNeck
+    100032: JointRightArm
+    100034: JointRightElbow
+    100036: JointRightFoot
+    100038: JointRightKnee
+    100040: JointRightLeg
+    100042: JointRightShoulder
+    100044: JointRightToe
+    100046: JointRoot
+    100048: JointSpine
+    100050: JointUpperBody
+    100052: LeftHand
+    100054: LeftKnee
+    100056: LeftLeg
+    100058: LeftLowerArm
+    100060: LeftShoe
+    100062: LeftUpperArm
+    100064: LowerSpine
+    100066: Neck
+    100068: PlayerMesh
+    100070: //RootNode
+    100072: RightHand
+    100074: RightKnee
+    100076: RightLeg
+    100078: RightLowerArm
+    100080: RightShoe
+    100082: RightUpperArm
+    100084: Spine
+    100086: UpperBody
+    400000: Head
+    400002: Helmet
+    400004: IKLeftArm
+    400006: IKLeftFoot
+    400008: IKRightArm
+    400010: IKRightFoot
+    400012: IKs
+    400014: JointHead
+    400016: JointLeftElbow
+    400018: JointLeftFoot
+    400020: JointLeftHand
+    400022: JointLeftKnee
+    400024: JointLeftLeg
+    400026: JointLeftShoulder
+    400028: JointLeftToe
+    400030: JointNeck
+    400032: JointRightArm
+    400034: JointRightElbow
+    400036: JointRightFoot
+    400038: JointRightKnee
+    400040: JointRightLeg
+    400042: JointRightShoulder
+    400044: JointRightToe
+    400046: JointRoot
+    400048: JointSpine
+    400050: JointUpperBody
+    400052: LeftHand
+    400054: LeftKnee
+    400056: LeftLeg
+    400058: LeftLowerArm
+    400060: LeftShoe
+    400062: LeftUpperArm
+    400064: LowerSpine
+    400066: Neck
+    400068: PlayerMesh
+    400070: //RootNode
+    400072: RightHand
+    400074: RightKnee
+    400076: RightLeg
+    400078: RightLowerArm
+    400080: RightShoe
+    400082: RightUpperArm
+    400084: Spine
+    400086: UpperBody
+    4300000: Head
+    4300002: Helmet
+    4300004: Neck
+    4300006: LeftHand
+    4300008: LeftLowerArm
+    4300010: LeftUpperArm
+    4300012: RightHand
+    4300014: RightLowerArm
+    4300016: RightUpperArm
+    4300018: UpperBody
+    4300020: Spine
+    4300022: LeftShoe
+    4300024: LeftKnee
+    4300026: RightShoe
+    4300028: RightKnee
+    4300030: RightLeg
+    4300032: LowerSpine
+    4300034: LeftLeg
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Head
+    13700002: Helmet
+    13700004: LeftHand
+    13700006: LeftKnee
+    13700008: LeftLeg
+    13700010: LeftLowerArm
+    13700012: LeftShoe
+    13700014: LeftUpperArm
+    13700016: LowerSpine
+    13700018: Neck
+    13700020: RightHand
+    13700022: RightKnee
+    13700024: RightLeg
+    13700026: RightLowerArm
+    13700028: RightShoe
+    13700030: RightUpperArm
+    13700032: Spine
+    13700034: UpperBody
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 20
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
