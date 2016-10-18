@@ -30,11 +30,11 @@ public class PlayerSetup : NetworkBehaviour {
             localPlayerModel.SetActive(false);
 
             //Disable the overview camera
-            sceneCamera = Camera.main;
+            /*sceneCamera = Camera.main;
             if(sceneCamera != null)
             {
                 sceneCamera.gameObject.SetActive(false);
-            }
+            }*/
         }
 
         
