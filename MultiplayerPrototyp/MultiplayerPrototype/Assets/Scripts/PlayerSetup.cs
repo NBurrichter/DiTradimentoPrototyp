@@ -5,7 +5,11 @@ using System.Collections.Generic;
 /// <summary>
 /// Handels the setup, when the player connects
 /// </summary>
+[RequireComponent(typeof(Player))]
 public class PlayerSetup : NetworkBehaviour {
+
+    [SerializeField]
+    private string remoteLayerName = "RemotePlayer";
 
     [SerializeField]
     private Behaviour[] componentsToDisableOnRemotePlayer;
@@ -23,6 +27,7 @@ public class PlayerSetup : NetworkBehaviour {
         if(!isLocalPlayer)
         {
             DisableRemoteComponents();
+            AssignRemoteLayer();
         }
         else
         {
@@ -37,7 +42,15 @@ public class PlayerSetup : NetworkBehaviour {
             }*/
         }
 
-        
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+
+        string _netID = GetComponent<NetworkIdentity>().netId.ToString();
+        Player _player = GetComponent<Player>();
+        GameManager.RegisterPlayer(_netID, _player);
     }
 
     /// <summary>
@@ -62,4 +75,14 @@ public class PlayerSetup : NetworkBehaviour {
         }
     }
 
+    void AssignRemoteLayer()
+    {
+        gameObject.layer = LayerMask.NameToLayer(remoteLayerName);
+        GetComponentInChildren<Collider>().gameObject.layer = LayerMask.NameToLayer(remoteLayerName);
+    }
+
+    void OnDisable()
+    {
+        GameManager.UnRegisterPlayer(transform.name);
+    }
 }

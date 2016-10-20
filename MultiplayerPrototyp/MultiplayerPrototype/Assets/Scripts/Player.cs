@@ -10,9 +10,12 @@ public class Player : NetworkBehaviour
     public int profession = 0;
     [SerializeField]
     private Text professionText;
+    [SerializeField]
+    private HealthSystem health;
 
     void Start()
     {
+        health = GetComponent<HealthSystem>();
         if (isLocalPlayer)
         {
             professionText = GameObject.Find("ProfessionText").GetComponent<Text>();
@@ -20,10 +23,15 @@ public class Player : NetworkBehaviour
     }
 
     void Update()
-    {if (isLocalPlayer)
+    {
+        if (isLocalPlayer)
         {
             professionText.text = profession.ToString();
         }
     }
 
+    public void TakeDamage(float _damage)
+    {
+        health.TakeDamage(_damage);
+    }
 }

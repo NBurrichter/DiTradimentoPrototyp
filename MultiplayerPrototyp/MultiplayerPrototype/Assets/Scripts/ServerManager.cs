@@ -14,6 +14,7 @@ public class ServerManager : MonoBehaviour {
     };
 
     void Start () {
+        /*
         for (int i = 0; i < professionList.Count; i++)
         {
             Debug.Log(professionList[i]);
@@ -32,6 +33,7 @@ public class ServerManager : MonoBehaviour {
             player.GetComponent<Player>().profession = professionList[listposition];
             professionList.RemoveAt(listposition);
         }
+        */
     }
 	
 }
