@@ -2,6 +2,9 @@
 {
     void Start()
     {
-
+        if (isServer)
+        {
+            SetDefaults();
+        }
     }
 }

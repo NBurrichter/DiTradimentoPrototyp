@@ -1,25 +1,51 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(PlayerMotor))]
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
+    //Movement
     [SerializeField]
     private float speed = 5f;
     [SerializeField]
     private float lookSensitivity = 3f;
 
     private PlayerMotor motor;
+    private PlayerShootController shootController;
+
 
     [Header("Jumping")]
     [SerializeField]
     private float jumpForce;
 
+    //Shooting
+    private bool shootInput = false;
+    private bool canShoot = true;
+    private float shootCooldown;
+    private WeaponBase equipedWeapon;
+
+    private PlayerEquipment equipment;
+    private int selectedWeapon = 0;
+
     void Start()
     {
         motor = GetComponent<PlayerMotor>();
+        shootController = GetComponent<PlayerShootController>();
+
+        equipment = GetComponent<PlayerEquipment>();
+        equipedWeapon = equipment.GetWeapon(selectedWeapon);
+
     }
 
     void Update()
+    {
+        UpdateMovementInput();
+        UpdateShootInput();
+        UpdateWeaponSwitchInput();
+    }
+
+    void UpdateMovementInput()
     {
         //Calculate movement velocity as a 3D vector
         float _xMov = Input.GetAxisRaw("Horizontal");
@@ -51,12 +77,12 @@ public class PlayerController : MonoBehaviour {
         motor.RotateCamera(_cameraRotationX);
 
         //Jumping
-        if(Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
             motor.Jump(jumpForce);
         }
 
-        if(Input.GetButton("Jump"))
+        if (Input.GetButton("Jump"))
         {
             motor.HoldJump(true);
         }
@@ -66,7 +92,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Sprinting
-        if(Input.GetButton("Sprint") && Input.GetAxisRaw("Vertical") > 0)
+        if (Input.GetButton("Sprint") && Input.GetAxisRaw("Vertical") > 0)
         {
             motor.ApplySprinting(true);
             //Debug.Log("sprint");
@@ -76,7 +102,54 @@ public class PlayerController : MonoBehaviour {
         {
             motor.ApplySprinting(false);
         }
-
     }
 
+    void UpdateShootInput()
+    {
+        
+        if (Input.GetButtonDown("Fire1"))
+        {
+            shootInput = true;
+        }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            shootInput = false;
+            canShoot = true;
+        }
+
+        if (shootCooldown > 0)
+        {
+            shootCooldown -= Time.deltaTime;
+        }
+
+        if (equipedWeapon.automatic)
+        {
+            if (shootInput && shootCooldown <= 0)
+            {
+                shootController.FireShot();
+                shootCooldown = equipedWeapon.fireRate;
+            }
+        }
+        else
+        {
+            if(shootInput && canShoot && shootCooldown <= 0)
+            {
+                shootController.FireShot();
+                canShoot = false;
+                shootCooldown = equipedWeapon.fireRate;
+            }
+        }
+    }
+
+    private void UpdateWeaponSwitchInput()
+    {
+        if(Input.GetButtonDown("Switch Weapon"))
+        {
+            selectedWeapon = 1 - selectedWeapon;
+            equipedWeapon = equipment.GetWeapon(selectedWeapon);
+            canShoot = true;
+            shootInput = false;
+            shootCooldown = 0.5f;
+        }
+    }
 }

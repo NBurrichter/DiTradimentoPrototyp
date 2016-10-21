@@ -14,6 +14,6 @@ public class BulletTrailSetup : NetworkBehaviour
         GetComponent<LineRenderer>().SetPosition(0, startPosition);
         GetComponent<LineRenderer>().SetPosition(1,endPosition);
 
-        Destroy(gameObject, 1);
+        Destroy(gameObject, 0.1f);
     }
 }

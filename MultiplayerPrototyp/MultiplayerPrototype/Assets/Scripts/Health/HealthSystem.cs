@@ -9,10 +9,10 @@ public class HealthSystem : NetworkBehaviour
     [SyncVar]
     protected float currentHealth;
 
-    void Awake()
+    void Start()
     {
         if (isServer)
-        {
+        {         
             SetDefaults();
         }
     }
@@ -24,6 +24,7 @@ public class HealthSystem : NetworkBehaviour
     
     public void SetDefaults()
     {
+        Debug.Log("setdefaults");
         currentHealth = maxHealth;
     }
 }

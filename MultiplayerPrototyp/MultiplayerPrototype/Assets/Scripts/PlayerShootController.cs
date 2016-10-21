@@ -19,17 +19,9 @@ public class PlayerShootController : NetworkBehaviour
     [SerializeField]
     private GameObject trail;
 
-    void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            FireShot();
-        }
-    }
-
     //Shoot
     [Client]
-    void FireShot()
+    public void FireShot()
     {
         RaycastHit _hit;
         if (Physics.Raycast(firePosition.transform.position, firePosition.transform.forward, out _hit, 9999, shootMask))
@@ -44,6 +36,7 @@ public class PlayerShootController : NetworkBehaviour
         }
     }
 
+    //Let the _playerID take damage
     [Command]
     void CmdPlayerIsShot(string _playerID, float _damage)
     {
@@ -51,6 +44,7 @@ public class PlayerShootController : NetworkBehaviour
         _player.TakeDamage(_damage);
     }
 
+    //Create Bullet trail
     [Command]
     void CmdSpawnLine(Vector3 _hitPoint)
     {
@@ -59,4 +53,5 @@ public class PlayerShootController : NetworkBehaviour
         _trailInst.GetComponent<BulletTrailSetup>().endPosition = _hitPoint;
         NetworkServer.Spawn(_trailInst);
     }
+
 }
