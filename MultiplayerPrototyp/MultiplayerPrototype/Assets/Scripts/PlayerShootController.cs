@@ -5,8 +5,6 @@ public class PlayerShootController : NetworkBehaviour
 {
     private const string PLAYER_TAG = "Player";
 
-    public float damage;
-
     [SerializeField]
     private Camera cam;//shoot ray
 
@@ -21,7 +19,7 @@ public class PlayerShootController : NetworkBehaviour
 
     //Shoot
     [Client]
-    public void FireShot()
+    public void FireShot(float _damage)
     {
         RaycastHit _hit;
         if (Physics.Raycast(firePosition.transform.position, firePosition.transform.forward, out _hit, 9999, shootMask))
@@ -30,7 +28,7 @@ public class PlayerShootController : NetworkBehaviour
             if (_hit.transform.root.tag == PLAYER_TAG)
             {
                 Debug.Log("Hit player: " + _hit.transform.root.name);
-                CmdPlayerIsShot(_hit.transform.root.name, damage);
+                CmdPlayerIsShot(_hit.transform.root.name, _damage);
             }
             CmdSpawnLine(_hit.point);
         }

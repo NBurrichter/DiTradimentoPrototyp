@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
         {
             if (shootInput && shootCooldown <= 0)
             {
-                shootController.FireShot();
+                shootController.FireShot(equipedWeapon.damage);
                 shootCooldown = equipedWeapon.fireRate;
             }
         }
@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
         {
             if(shootInput && canShoot && shootCooldown <= 0)
             {
-                shootController.FireShot();
+                shootController.FireShot(equipedWeapon.damage);
                 canShoot = false;
                 shootCooldown = equipedWeapon.fireRate;
             }
