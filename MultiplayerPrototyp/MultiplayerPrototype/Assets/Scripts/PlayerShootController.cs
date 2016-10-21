@@ -16,6 +16,9 @@ public class PlayerShootController : NetworkBehaviour
     [SerializeField]
     private LayerMask shootMask;
 
+    [SerializeField]
+    private GameObject trail;
+
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -37,7 +40,7 @@ public class PlayerShootController : NetworkBehaviour
                 Debug.Log("Hit player: " + _hit.transform.root.name);
                 CmdPlayerIsShot(_hit.transform.root.name, damage);
             }
-            //CmdSpawnLine(_hit.point);
+            CmdSpawnLine(_hit.point);
         }
     }
 
@@ -46,5 +49,14 @@ public class PlayerShootController : NetworkBehaviour
     {
         Player _player = GameManager.GetPlayer(_playerID);
         _player.TakeDamage(_damage);
+    }
+
+    [Command]
+    void CmdSpawnLine(Vector3 _hitPoint)
+    {
+        GameObject _trailInst = Instantiate(trail, transform.position, transform.rotation) as GameObject;
+        _trailInst.GetComponent<BulletTrailSetup>().startPosition = transform.position;
+        _trailInst.GetComponent<BulletTrailSetup>().endPosition = _hitPoint;
+        NetworkServer.Spawn(_trailInst);
     }
 }
