@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 /// <summary>
 /// Handels the setup, when the player connects
@@ -19,6 +20,9 @@ public class PlayerSetup : NetworkBehaviour {
     [SerializeField]
     private GameObject localPlayerModel;
 
+    [SerializeField]
+    private GameObject PlayerUICanvas;
+
     private Camera sceneCamera;
 
     void Start()
@@ -33,7 +37,7 @@ public class PlayerSetup : NetworkBehaviour {
         {
             DisableLocalComponents();
             localPlayerModel.SetActive(false);
-
+            CreatePlayerUI();
             //Disable the overview camera
             /*sceneCamera = Camera.main;
             if(sceneCamera != null)
@@ -84,5 +88,11 @@ public class PlayerSetup : NetworkBehaviour {
     void OnDisable()
     {
         GameManager.UnRegisterPlayer(transform.name);
+    }
+
+    void CreatePlayerUI()
+    {
+        GameObject ui = Instantiate(PlayerUICanvas) as GameObject;
+        GetComponent<PlayerController>().SetUIReferences(ui.GetComponentInChildren<Text>());
     }
 }

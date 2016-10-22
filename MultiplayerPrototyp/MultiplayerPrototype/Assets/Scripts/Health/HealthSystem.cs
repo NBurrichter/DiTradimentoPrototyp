@@ -9,7 +9,7 @@ public class HealthSystem : NetworkBehaviour
     [SyncVar]
     protected float currentHealth;
 
-    void Start()
+    protected void Start()
     {
         if (isServer)
         {         

@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 public class PlayerShootController : NetworkBehaviour
 {
     private const string PLAYER_TAG = "Player";
+    private const string ENEMY_TAG = "Enemy";
 
     [SerializeField]
     private Camera cam;//shoot ray
@@ -30,6 +31,10 @@ public class PlayerShootController : NetworkBehaviour
                 Debug.Log("Hit player: " + _hit.transform.root.name);
                 CmdPlayerIsShot(_hit.transform.root.name, _damage);
             }
+            if (_hit.transform.root.tag == ENEMY_TAG)
+            {
+                CmdEnemyIsShot(_hit.transform.root.name, _damage);
+            }
             CmdSpawnLine(_hit.point);
         }
     }
@@ -52,4 +57,10 @@ public class PlayerShootController : NetworkBehaviour
         NetworkServer.Spawn(_trailInst);
     }
 
+    [Command]
+    void CmdEnemyIsShot(string _enemyID, float _damage)
+    {
+        Enemy _enemy = GameManager.GetEnemy(_enemyID);
+        _enemy.TakeDamage(_damage);
+    }
 }

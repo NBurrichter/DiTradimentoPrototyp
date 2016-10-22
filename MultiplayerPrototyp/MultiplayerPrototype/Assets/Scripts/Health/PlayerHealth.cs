@@ -1,10 +1,10 @@
 ﻿public class PlayerHealth : HealthSystem
 {
-    void Start()
+    /*void Start()
     {
         if (isServer)
         {
             SetDefaults();
         }
-    }
+    }*/
 }

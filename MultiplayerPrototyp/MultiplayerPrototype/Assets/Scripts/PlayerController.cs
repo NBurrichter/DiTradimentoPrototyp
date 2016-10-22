@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour
@@ -28,6 +29,8 @@ public class PlayerController : MonoBehaviour
     private PlayerEquipment equipment;
     private int selectedWeapon = 0;
 
+    private Text ammunitionText;
+
     void Start()
     {
         motor = GetComponent<PlayerMotor>();
@@ -44,6 +47,9 @@ public class PlayerController : MonoBehaviour
         UpdateShootInput();
         UpdateWeaponSwitchInput();
         UpdateReloadInput();
+
+        //UI Update temporary in playerController
+        UpdateUI();
     }
 
     void UpdateMovementInput()
@@ -181,5 +187,15 @@ public class PlayerController : MonoBehaviour
                 equipedWeapon.currentMagazine = equipedWeapon.magazineSize;
             }
         }
+    }
+
+    public void SetUIReferences(Text _ammoText)
+    {
+        ammunitionText = _ammoText;
+    }
+
+    void UpdateUI()
+    {
+        ammunitionText.text = "Ammo:" + equipedWeapon.currentMagazine + "/" + equipedWeapon.magazineSize + " | " + equipedWeapon.availableMagazines;
     }
 }
