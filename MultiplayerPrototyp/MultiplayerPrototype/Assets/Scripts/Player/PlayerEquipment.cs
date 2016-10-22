@@ -2,11 +2,27 @@
 using System.Collections;
 
 public class PlayerEquipment : MonoBehaviour {
+    [SerializeField]
+    private WeaponBase primaryWeaponPrefab;
+    [SerializeField]
+    private WeaponBase secondaryWeaponPrefab;
 
-    [SerializeField]
-    private WeaponBase primaryWeapon;
-    [SerializeField]
+    private WeaponBase primaryWeapon;    
     private WeaponBase secondaryWeapon;
+
+    void Awake()
+    {
+        CreateWeaponInstance();
+    }
+
+    //Creates a copy from the prefabs
+    void CreateWeaponInstance()
+    {
+        primaryWeapon = new WeaponBase();
+        primaryWeapon.Setup(primaryWeaponPrefab);
+        secondaryWeapon = new WeaponBase();
+        secondaryWeapon.Setup(secondaryWeaponPrefab);
+    }
 
     public WeaponBase GetWeapon(int number)
     {

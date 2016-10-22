@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
         UpdateMovementInput();
         UpdateShootInput();
         UpdateWeaponSwitchInput();
+        UpdateReloadInput();
     }
 
     void UpdateMovementInput()
@@ -126,17 +127,15 @@ public class PlayerController : MonoBehaviour
         {
             if (shootInput && shootCooldown <= 0)
             {
-                shootController.FireShot(equipedWeapon.damage);
-                shootCooldown = equipedWeapon.fireRate;
+                DoShot();               
             }
         }
         else
         {
             if(shootInput && canShoot && shootCooldown <= 0)
             {
-                shootController.FireShot(equipedWeapon.damage);
+                DoShot();
                 canShoot = false;
-                shootCooldown = equipedWeapon.fireRate;
             }
         }
     }
@@ -150,6 +149,37 @@ public class PlayerController : MonoBehaviour
             canShoot = true;
             shootInput = false;
             shootCooldown = 0.5f;
+        }
+    }
+
+    void UpdateReloadInput()
+    {
+        if(Input.GetButtonDown("Reload"))
+        {
+            ReloadWeapon();
+        }
+    }
+
+    void DoShot()
+    {
+        if (equipedWeapon.currentMagazine > 0)
+        {
+            shootController.FireShot(equipedWeapon.damage);
+            shootCooldown = equipedWeapon.fireRate;
+            equipedWeapon.currentMagazine--;
+        }
+    }
+
+    void ReloadWeapon()
+    {
+        if(equipedWeapon.currentMagazine != equipedWeapon.magazineSize)
+        {
+            if (equipedWeapon.availableMagazines > 0)
+            {
+                //equipedWeapon.ammunition -= equipedWeapon.magazineSize;
+                equipedWeapon.availableMagazines--;
+                equipedWeapon.currentMagazine = equipedWeapon.magazineSize;
+            }
         }
     }
 }
