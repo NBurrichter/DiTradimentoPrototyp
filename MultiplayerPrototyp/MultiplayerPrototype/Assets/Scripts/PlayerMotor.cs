@@ -61,6 +61,8 @@ public class PlayerMotor : MonoBehaviour
     private LayerMask groundRayLayer;
     [SerializeField]
     private LayerMask headRayLayer;
+    [SerializeField]
+    private float slopeLimit;
 
     [Header("Camera Rotation Clamp")]
     [SerializeField]
@@ -115,14 +117,22 @@ public class PlayerMotor : MonoBehaviour
 
         if (Physics.SphereCast(transform.position, _editedGrounndRayThickness, Vector3.down, out _hitInfo, _editedGrounndRayLength, groundRayLayer))
         {
-            if (!isJumping)
+            if (Vector3.Angle(Vector3.up, _hitInfo.normal) < slopeLimit)
             {
-                jumpForce = -100;
+                if (!isJumping)
+                {
+                    jumpForce = -100;
+                }
+
+                isGrounded = true;
+                //jumpForce = 0;
+
+                Debug.DrawLine(transform.position, _hitInfo.point, Color.green);
             }
+            else
+            {
 
-            isGrounded = true;
-            //jumpForce = 0;
-
+            }
             Debug.DrawLine(transform.position, _hitInfo.point, Color.yellow);
         }
         else
