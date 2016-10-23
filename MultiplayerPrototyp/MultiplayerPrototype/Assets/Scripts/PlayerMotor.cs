@@ -67,14 +67,23 @@ public class PlayerMotor : MonoBehaviour
     private float cameraRotationLimit = 85f;
 
     [Header("Sprinting")]
-    private bool isSprinting;
     [SerializeField]
     private float sprintSpeed = 1.5f;
+    private bool isSprinting;
+
+    [Header("Crouching")]
+    [SerializeField]
+    private CapsuleCollider playerCollider;
+    [SerializeField]
+    private float crouchHeight;
+    private float defaultHeight;
+    private bool isCrouhcing;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        defaultHeight = playerCollider.height;
     }
 
     void Update()
@@ -84,10 +93,11 @@ public class PlayerMotor : MonoBehaviour
 
     void FixedUpdate()
     {
-         PerformMovement();
-         PerformRotation();
-         PerformFOV();
-         PerformGrounding();      
+        PerformMovement();
+        PerformRotation();
+        PerformCrouching();
+        PerformFOV();
+        PerformGrounding();
     }
 
     void PerformGrounding()
@@ -95,8 +105,15 @@ public class PlayerMotor : MonoBehaviour
         //---Check if is grounded---
         RaycastHit _hitInfo;
         //Debug.DrawLine(transform.position, transform.position + Vector3.down * groundRayLength,Color.red,1);
+        float _editedGrounndRayLength = groundRayLength;
+        float _editedGrounndRayThickness = rayThickness;
+        if (isCrouhcing)
+        {
+            _editedGrounndRayLength = groundRayLength / 2 +0.1f;
+            _editedGrounndRayThickness = rayThickness / 2 + 0.1f;
+        }
 
-        if (Physics.SphereCast(transform.position, rayThickness, Vector3.down, out _hitInfo, groundRayLength, groundRayLayer))
+        if (Physics.SphereCast(transform.position, _editedGrounndRayThickness, Vector3.down, out _hitInfo, _editedGrounndRayLength, groundRayLayer))
         {
             if (!isJumping)
             {
@@ -163,6 +180,11 @@ public class PlayerMotor : MonoBehaviour
         isHoldingJump = _state;
     }
 
+    public void ApplyCrouch(bool _state)
+    {
+        isCrouhcing = _state;
+    }
+
     //Perform movemnt based on velocity variable
     void PerformMovement()
     {
@@ -172,18 +194,18 @@ public class PlayerMotor : MonoBehaviour
             //anim.SetBool("Walking", true);
             //Normal Speed
 
-                //Calculate speed modifier
-                float _calculatedSpeed;
-                if (isSprinting)
-                {
-                    _calculatedSpeed = sprintSpeed;
-                }
-                else
-                {
-                    _calculatedSpeed = 1;
-                }
-                rb.velocity = (velocity * Time.fixedDeltaTime * _calculatedSpeed);
-            
+            //Calculate speed modifier
+            float _calculatedSpeed;
+            if (isSprinting)
+            {
+                _calculatedSpeed = sprintSpeed;
+            }
+            else
+            {
+                _calculatedSpeed = 1;
+            }
+            rb.velocity = (velocity * Time.fixedDeltaTime * _calculatedSpeed);
+
         }
         else
         {
@@ -195,8 +217,8 @@ public class PlayerMotor : MonoBehaviour
         //Jumpinng, works similar to walking by calculating the speed modifier
         if (!isGrounded || isJumping)
         {
-                rb.velocity = rb.velocity + verticalMovement * Time.fixedDeltaTime * jumpForce;              
-                jumpForce -= gravity;        
+            rb.velocity = rb.velocity + verticalMovement * Time.fixedDeltaTime * jumpForce;
+            jumpForce -= gravity;
         }
 
     }
@@ -227,6 +249,18 @@ public class PlayerMotor : MonoBehaviour
 
             //Apply rotation to camera
             cam.transform.localEulerAngles = new Vector3(currenRotationX, 0f, 0f);
+        }
+    }
+
+    void PerformCrouching()
+    {
+        if (isCrouhcing)
+        {
+            playerCollider.height = crouchHeight;
+        }
+        else
+        {
+            playerCollider.height = defaultHeight;
         }
     }
 }

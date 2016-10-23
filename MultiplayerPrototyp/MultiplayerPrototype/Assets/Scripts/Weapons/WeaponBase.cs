@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class WeaponBase : MonoBehaviour
+public class WeaponBase : ScriptableObject
 {
 
     public string gunName;

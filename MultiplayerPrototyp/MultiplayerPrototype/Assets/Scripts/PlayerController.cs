@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     private PlayerMotor motor;
     private PlayerShootController shootController;
 
-
     [Header("Jumping")]
     [SerializeField]
     private float jumpForce;
@@ -47,6 +46,7 @@ public class PlayerController : MonoBehaviour
         UpdateShootInput();
         UpdateWeaponSwitchInput();
         UpdateReloadInput();
+        UpdateCrouchInput();
 
         //UI Update temporary in playerController
         UpdateUI();
@@ -163,6 +163,18 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Reload"))
         {
             ReloadWeapon();
+        }
+    }
+
+    void UpdateCrouchInput()
+    {
+        if(Input.GetButtonDown("Crouch"))
+        {
+            motor.ApplyCrouch(true);
+        }
+        if (Input.GetButtonUp("Crouch"))
+        {
+            motor.ApplyCrouch(false);
         }
     }
 
