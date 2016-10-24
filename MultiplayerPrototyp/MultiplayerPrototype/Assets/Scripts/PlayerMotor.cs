@@ -131,9 +131,8 @@ public class PlayerMotor : MonoBehaviour
             }
             else
             {
-
-            }
-            Debug.DrawLine(transform.position, _hitInfo.point, Color.yellow);
+                Debug.DrawLine(transform.position, _hitInfo.point, Color.yellow);
+            }         
         }
         else
         {
