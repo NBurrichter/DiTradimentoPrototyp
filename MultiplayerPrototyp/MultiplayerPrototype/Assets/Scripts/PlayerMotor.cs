@@ -80,6 +80,8 @@ public class PlayerMotor : MonoBehaviour
     private float crouchHeight;
     private float defaultHeight;
     private bool isCrouching;
+    [SerializeField]
+    private float stickToGroundDistance = 0.25f;
 
     void Start()
     {
@@ -111,7 +113,7 @@ public class PlayerMotor : MonoBehaviour
         float _editedGrounndRayThickness = rayThickness;
         if (isCrouching)
         {
-            _editedGrounndRayLength = groundRayLength / 2 +0.1f;
+            _editedGrounndRayLength = groundRayLength / 2 + 0.1f;
             _editedGrounndRayThickness = rayThickness / 2 + 0.1f;
         }
 
@@ -119,11 +121,6 @@ public class PlayerMotor : MonoBehaviour
         {
             if (Vector3.Angle(Vector3.up, _hitInfo.normal) < slopeLimit)
             {
-                if (!isJumping)
-                {
-                    jumpForce = -100;
-                }
-
                 isGrounded = true;
                 //jumpForce = 0;
 
@@ -132,11 +129,21 @@ public class PlayerMotor : MonoBehaviour
             else
             {
                 Debug.DrawLine(transform.position, _hitInfo.point, Color.yellow);
-            }         
+            }
         }
         else
         {
             isGrounded = false;
+        }
+
+        //Ground Sticking
+        if (!isJumping && !isGrounded)
+        {
+            if (Physics.Raycast(transform.position/*, _editedGrounndRayThickness*/, Vector3.down, out _hitInfo, _editedGrounndRayLength + stickToGroundDistance, groundRayLayer))
+            {
+                transform.position = _hitInfo.point + Vector3.up;
+                Debug.DrawLine(transform.position, _hitInfo.point, Color.magenta);
+            }
         }
 
         if (jumpForce <= 0)
@@ -144,7 +151,7 @@ public class PlayerMotor : MonoBehaviour
             isJumping = false;
         }
 
-        //---Check if head hits a ceiling---
+        //---Check if head hits a ceiling while jumping---
         if (Physics.SphereCast(transform.position, rayThickness, Vector3.up, out _hitInfo, groundRayLength, headRayLayer))
         {
             if (jumpForce > 0)

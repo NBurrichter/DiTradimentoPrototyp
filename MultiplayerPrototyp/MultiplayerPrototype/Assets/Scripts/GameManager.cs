@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
 
         foreach (string _enemyID in enemys.Keys)
         {
-            GUILayout.Label(_enemyID + " - " + enemys[_enemyID].transform.name);
+            GUILayout.Label(_enemyID + " - " + enemys[_enemyID].transform.name+ "|" + enemys[_enemyID].GetComponent<HealthSystem>().GetHealth());
         }
 
         GUILayout.EndVertical();

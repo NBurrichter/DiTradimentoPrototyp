@@ -27,4 +27,9 @@ public class HealthSystem : NetworkBehaviour
         Debug.Log("setdefaults");
         currentHealth = maxHealth;
     }
+
+    public float GetHealth()
+    {
+        return currentHealth;
+    }
 }
