@@ -11,12 +11,26 @@ public class Player : CharacterBase
     [SerializeField]
     private Text professionText;
 
+    [Header("Crouching")]
+    [SerializeField]
+    private CapsuleCollider playerCollider;
+    [SerializeField]
+    private float crouchHeight;
+    private float defaultHeight;
+    [SyncVar]
+    private bool isCrouching;
+
+
     override public void Start()
     {
         base.Start();
         if (isLocalPlayer)
         {
             professionText = GameObject.Find("ProfessionText").GetComponent<Text>();
+        }
+        else
+        {
+            defaultHeight = playerCollider.height;
         }
     }
 
@@ -26,6 +40,24 @@ public class Player : CharacterBase
         {
             professionText.text = profession.ToString();
         }
+        else
+        {
+            //Update Crouching on for remotes
+            if (isCrouching)
+            {
+                playerCollider.height = crouchHeight;
+            }
+            else
+            {
+                playerCollider.height = defaultHeight;
+            }
+        }
+    }
+
+    [Command]
+    public void CmdSetCrouch(bool _state)
+    {
+        isCrouching = _state;
     }
 
 }

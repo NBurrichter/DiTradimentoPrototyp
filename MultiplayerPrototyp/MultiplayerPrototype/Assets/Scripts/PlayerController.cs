@@ -29,11 +29,14 @@ public class PlayerController : MonoBehaviour
     private int selectedWeapon = 0;
 
     private Text ammunitionText;
+    private Player thisPlayer;
+    
 
     void Start()
     {
         motor = GetComponent<PlayerMotor>();
         shootController = GetComponent<PlayerShootController>();
+        thisPlayer = GetComponent<Player>();
 
         equipment = GetComponent<PlayerEquipment>();
         equipedWeapon = equipment.GetWeapon(selectedWeapon);
@@ -171,10 +174,13 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Crouch"))
         {
             motor.ApplyCrouch(true);
+            thisPlayer.CmdSetCrouch(true);
+            
         }
         if (Input.GetButtonUp("Crouch"))
         {
             motor.ApplyCrouch(false);
+            thisPlayer.CmdSetCrouch(false);
         }
     }
 

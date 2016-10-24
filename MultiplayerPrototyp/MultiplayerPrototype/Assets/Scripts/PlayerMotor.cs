@@ -79,7 +79,7 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField]
     private float crouchHeight;
     private float defaultHeight;
-    private bool isCrouhcing;
+    private bool isCrouching;
 
     void Start()
     {
@@ -109,7 +109,7 @@ public class PlayerMotor : MonoBehaviour
         //Debug.DrawLine(transform.position, transform.position + Vector3.down * groundRayLength,Color.red,1);
         float _editedGrounndRayLength = groundRayLength;
         float _editedGrounndRayThickness = rayThickness;
-        if (isCrouhcing)
+        if (isCrouching)
         {
             _editedGrounndRayLength = groundRayLength / 2 +0.1f;
             _editedGrounndRayThickness = rayThickness / 2 + 0.1f;
@@ -191,7 +191,7 @@ public class PlayerMotor : MonoBehaviour
 
     public void ApplyCrouch(bool _state)
     {
-        isCrouhcing = _state;
+        isCrouching = _state;
     }
 
     //Perform movemnt based on velocity variable
@@ -263,7 +263,7 @@ public class PlayerMotor : MonoBehaviour
 
     void PerformCrouching()
     {
-        if (isCrouhcing)
+        if (isCrouching)
         {
             playerCollider.height = crouchHeight;
         }
